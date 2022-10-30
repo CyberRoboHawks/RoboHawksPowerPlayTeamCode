@@ -21,6 +21,21 @@ public class Commands extends HardwareMapping {
         Right,
         Left
     }
+    public enum clawPosition {
+        High,
+        Medium,
+        Low
+    }
+
+    // open claw
+
+    // close claw
+
+    // autonomous arm command
+    public void powerArm ( clawPosition position ){
+        //TODO
+
+    }
 
     // Strafe right
     public void strafeRight(double power, double distanceInInches, double timeout) {
