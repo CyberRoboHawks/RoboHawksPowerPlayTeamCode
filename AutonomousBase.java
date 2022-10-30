@@ -30,4 +30,6 @@ public abstract class AutonomousBase extends LinearOpMode {
         telemetry.addData("Status:", "ready");
         telemetry.update();
     }
+
+
 }
