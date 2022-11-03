@@ -32,9 +32,47 @@ public class Commands extends HardwareMapping {
     // close claw
 
     // autonomous arm command
-    public void powerArm ( clawPosition position ){
+    public void powerArm ( clawPosition position,double power,int timeoutS  ){
         //TODO
+        if (position == clawPosition.High) {
+           powerArmBase();
 
+        }
+        else if (position == clawPosition.Medium) {
+
+        }
+        else {
+
+        }
+
+    }
+
+    private void powerArmBase( int target, double power, int timeoutS){
+        //TODO
+        armMotor.setTargetPosition(target);
+
+        // Turn On RUN_TO_POSITION
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // reset the timeout time and start motion.
+        runtime.reset();
+        armMotor.setPower(Math.abs(power));
+
+
+        // keep looping while we are still active, and there is time left, and both motors are running.
+        // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+        // its target position, the motion will stop.  This is "safer" in the event that the robot will
+        // always end the motion as soon as possible.
+        // However, if you require that BOTH motors have finished their moves before the robot continues
+        // onto the next step, use (isBusy() || isBusy()) in the loop test.
+        while (
+                (runtime.seconds() < timeoutS) &&
+                        (armMotor.isBusy())) {
+        }
+
+        // Stop all motion;
+        armMotor.setPower(0);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     // Strafe right
