@@ -28,20 +28,28 @@ public class Commands extends HardwareMapping {
     }
 
     // open claw
+    public void openClaw (){
+        clawServo.setPosition(0.25);
+    }
 
     // close claw
+    public void closeClaw (){
+        clawServo.setPosition(0);
+    }
 
     // autonomous arm command
     public void powerArm ( clawPosition position,double power,int timeoutS  ){
-        //TODO
+        //TODO figure out the numbers for high medium and low.
         if (position == clawPosition.High) {
-           powerArmBase();
+            powerArmBase(10000, 0.5, 2);
 
         }
         else if (position == clawPosition.Medium) {
+            powerArmBase(5000,0.5,2);
 
         }
         else {
+            powerArmBase(1000,0.5,2);
 
         }
 

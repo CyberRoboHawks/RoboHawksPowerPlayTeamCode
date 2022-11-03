@@ -17,15 +17,18 @@ public class AutonomousLeft extends AutonomousBase {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            //TODO read signal
+            // read signal
             ParkingZone parkingZone = ParkingZone.Zone2Bulb;
 
-            //TODO close claw on the cone
+            // close claw on the cone
+            commands.closeClaw();
 
-            //TODO raise claw off the floor
+            // raise claw off the floor
+            commands.powerArm(Commands.clawPosition.Low,0.5,3);
 
             commands.driveForward(DRIVE_SPEED, 54, 5);
-            // TODO raise claw to the high position
+            //  raise claw to the high position
+            commands.powerArm(Commands.clawPosition.High,0.5,3);
 
             // turn towards the junction pole
             switch (startingSide){
@@ -37,7 +40,8 @@ public class AutonomousLeft extends AutonomousBase {
                     break;
             }
 
-            //TODO open claw and drop cone
+            // open claw and drop cone
+            commands.openClaw();
 
             // turn back towards the init/starting heading
             switch (startingSide){
@@ -49,7 +53,8 @@ public class AutonomousLeft extends AutonomousBase {
                     break;
             }
 
-            //TODO lower claw to floor
+            // lower claw to floor
+            commands.powerArm(Commands.clawPosition.Low,0.5,3);
 
             switch (parkingZone) {
                 case Zone1Bolt:
