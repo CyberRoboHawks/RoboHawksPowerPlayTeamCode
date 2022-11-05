@@ -23,14 +23,18 @@ public abstract class AutonomousBase extends LinearOpMode {
     }
 
     public void executeCommands(PowerPlayEnums.startingSide startingSide) throws InterruptedException{
+
         // read signal
         PowerPlayEnums.parkingZone parkingZone = objectDetection.readParkingZone(5, 500);
+        telemetry.addData("ParkingZone :", parkingZone);
+        telemetry.update();
 
         // close claw on the cone
         commands.closeClaw();
+        sleep(200);
 
         // raise claw off the floor
-        commands.powerArm(Commands.clawPosition.Low,0.5,3);
+        commands.powerArm(Commands.clawPosition.Floor,0.5,3);
 
         commands.driveForward(DRIVE_SPEED, 60, 5);
 
@@ -52,20 +56,15 @@ public abstract class AutonomousBase extends LinearOpMode {
 
         // open claw and drop cone
         commands.openClaw();
+        sleep(200);
 
-        // turn back towards the init/starting heading
-        switch (startingSide){
-            case Left:
-                commands.spinLeft(DRIVE_SPEED, 0, 3);
-                break;
-            case Right:
-                commands.spinRight(DRIVE_SPEED, 0, 3);
-                break;
-        }
+        // move backwards away from the high junction
+        commands.driveBackwards(DRIVE_SPEED, 8, 2);
 
         // lower claw to floor
-        commands.powerArm(Commands.clawPosition.Low,0.5,3);
+        commands.powerArm(Commands.clawPosition.Floor,0.5,3);
 
+        // navigate to parking location
         switch (parkingZone) {
             case Zone1Bolt:
                 commands.spinLeft(DRIVE_SPEED, 90, 3);
@@ -74,13 +73,13 @@ public abstract class AutonomousBase extends LinearOpMode {
             case Zone2Bulb:
                 if (startingSide == PowerPlayEnums.startingSide.Left){
                     commands.spinLeft(DRIVE_SPEED, 0, 3);
-                }else {
+                }else{
                     commands.spinRight(DRIVE_SPEED, 0, 3);
                 }
                 break;
             case Zone3Panel:
                 commands.spinRight(DRIVE_SPEED, -90, 3);
-                commands.driveForward(DRIVE_SPEED, 24, 5);
+                commands.driveForward(DRIVE_SPEED, 22, 5);
                 break;
         }
 

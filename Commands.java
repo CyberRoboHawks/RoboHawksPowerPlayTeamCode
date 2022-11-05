@@ -24,7 +24,8 @@ public class Commands extends HardwareMapping {
     public enum clawPosition {
         High,
         Medium,
-        Low
+        Low,
+        Floor
     }
 
     // open claw
@@ -39,7 +40,7 @@ public class Commands extends HardwareMapping {
 
     // autonomous arm command
     public void powerArm ( clawPosition position,double power,int timeoutS  ){
-        //TODO figure out the numbers for high medium and low.
+        //TODO figure out the numbers for high medium low floor.
         if (position == clawPosition.High) {
             powerArmBase(10000, 0.5, 2);
 
@@ -48,9 +49,12 @@ public class Commands extends HardwareMapping {
             powerArmBase(5000,0.5,2);
 
         }
-        else {
+        else if (position == clawPosition.Low){
             powerArmBase(1000,0.5,2);
 
+        }
+        else {
+            powerArmBase(200,0.5,1);
         }
 
     }
@@ -60,7 +64,7 @@ public class Commands extends HardwareMapping {
     }
 
     private void powerArmBase( int target, double power, int timeoutS){
-        //TODO
+        //set target encoder number
         armMotor.setTargetPosition(target);
 
         // Turn On RUN_TO_POSITION
@@ -70,17 +74,7 @@ public class Commands extends HardwareMapping {
         runtime.reset();
         armMotor.setPower(Math.abs(power));
 
-
-        // keep looping while we are still active, and there is time left, and both motors are running.
-        // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
-        // its target position, the motion will stop.  This is "safer" in the event that the robot will
-        // always end the motion as soon as possible.
-        // However, if you require that BOTH motors have finished their moves before the robot continues
-        // onto the next step, use (isBusy() || isBusy()) in the loop test.
-        while (
-                (runtime.seconds() < timeoutS) &&
-                        (armMotor.isBusy())) {
-        }
+        while ( (runtime.seconds() < timeoutS) && (armMotor.isBusy()) ) { }
 
         // Stop all motion;
         armMotor.setPower(0);
