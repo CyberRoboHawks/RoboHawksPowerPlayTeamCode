@@ -60,7 +60,7 @@ public class TeleOpDrive extends LinearOpMode {
 
                 // Mecanum drive controls
                 double y = -gamepad1.left_stick_y; // Remember, this is reversed!
-                double x = gamepad1.left_stick_x *0.75; // Counteract imperfect strafing
+                double x = gamepad1.left_stick_x * 0.75; // Counteract imperfect strafing
                 double rx = gamepad1.right_stick_x;
 
                 //Govern the demand to a speed constant

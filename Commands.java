@@ -29,7 +29,7 @@ public class Commands extends HardwareMapping {
 
     // open claw
     public void openClaw (){
-        clawServo.setPosition(0.25);
+        clawServo.setPosition(0.5);
     }
 
     // close claw
@@ -53,6 +53,10 @@ public class Commands extends HardwareMapping {
 
         }
 
+    }
+
+    public void holdArm(double power){
+        armMotor.setPower(power);
     }
 
     private void powerArmBase( int target, double power, int timeoutS){
