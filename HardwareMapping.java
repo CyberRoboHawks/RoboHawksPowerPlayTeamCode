@@ -37,7 +37,7 @@ public class HardwareMapping {
         rightBackMotor = setupMotor("rightBackMotor", DcMotor.Direction.REVERSE, 0, true,true);
 
         armMotor = setupMotor("armMotor",DcMotorSimple.Direction.FORWARD,0,true,true);
-        clawServo = setupServo("clawServo",0);
+        clawServo = setupServo("clawServo",0.5);
         clawRotationServo = setupServo("clawRotationServo",0);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
