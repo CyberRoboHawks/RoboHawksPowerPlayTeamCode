@@ -40,21 +40,20 @@ public class Commands extends HardwareMapping {
 
     // autonomous arm command
     public void powerArm ( clawPosition position,double power,int timeoutS  ){
-        //TODO figure out the numbers for high medium low floor.
         if (position == clawPosition.High) {
-            powerArmBase(10000, 0.5, 2);
+            powerArmBase(Constants.ARM_HIGH_J, 0.5, 2);
 
         }
         else if (position == clawPosition.Medium) {
-            powerArmBase(5000,0.5,2);
+            powerArmBase(Constants.ARM_MID_J,0.5,2);
 
         }
         else if (position == clawPosition.Low){
-            powerArmBase(1000,0.5,2);
+            powerArmBase(Constants.ARM_LOW_J,0.5,2);
 
         }
         else {
-            powerArmBase(200,0.5,1);
+            powerArmBase(Constants.ARM_DRIVE,0.5,1);
         }
 
     }
@@ -89,7 +88,6 @@ public class Commands extends HardwareMapping {
 
     // Strafe left
     public void strafeLeft(double power, double distanceInInches, double timeout) {
-        // TODO call encoderDriveStrafe to the Left
         encoderDriveStrafe(power, distanceInInches, strafeDirection.Left,timeout);
     }
 

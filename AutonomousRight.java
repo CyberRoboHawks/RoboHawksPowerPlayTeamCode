@@ -16,7 +16,7 @@ public class AutonomousRight extends AutonomousBase {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            executeCommands(PowerPlayEnums.startingSide.Right);
+            executeCommands(Constants.startingSide.Right);
             sleep(30000);
         }
     }

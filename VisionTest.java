@@ -25,18 +25,7 @@ public class VisionTest extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            float duckPosition = objectDetection.getDuckPosition();
-            int state = objectDetection.getDuckState(duckPosition);
 
-            for (int i = 0; i<= 60; i++){
-                duckPosition = objectDetection.getDuckPosition();
-                state = objectDetection.getDuckState(duckPosition);
-                telemetry.addData("count ", i);
-                telemetry.addData("state ", state);
-                telemetry.addData("duck location", duckPosition);
-                telemetry.update();
-                sleep(500);
-            }
 
             sleep(30000);
         }

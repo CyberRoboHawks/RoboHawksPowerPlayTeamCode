@@ -57,8 +57,8 @@ public class ObjectDetection extends HardwareMapping {
         return tfod.getRecognitions();
     }
 
-    public PowerPlayEnums.parkingZone readParkingZone(int attempts, long waitInMs) throws InterruptedException {
-        PowerPlayEnums.parkingZone parkingZone = readSignal();
+    public Constants.parkingZone readParkingZone(int attempts, long waitInMs) throws InterruptedException {
+        Constants.parkingZone parkingZone = readSignal();
         if (parkingZone == null) {
             // try to read the signal for a set number of attempts and wait between each try
             for (int i = 0; i <= attempts; i++) {
@@ -72,7 +72,7 @@ public class ObjectDetection extends HardwareMapping {
 
         //  if parkingZone not found set to Zone2Bulb (default)
         if (parkingZone == null) {
-            parkingZone = PowerPlayEnums.parkingZone.Zone2Bulb;
+            parkingZone = Constants.parkingZone.Zone2Bulb;
         }
         return parkingZone;
     }
@@ -103,7 +103,7 @@ public class ObjectDetection extends HardwareMapping {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
     }
 
-    private PowerPlayEnums.parkingZone readSignal() {
+    private Constants.parkingZone readSignal() {
         if (tfod != null) {
             // Using getRecognitions because it returns a value every time it's called
             List<Recognition> recognitions = tfod.getRecognitions();
@@ -112,11 +112,11 @@ public class ObjectDetection extends HardwareMapping {
                 for (Recognition recognition : recognitions) {
                     switch (recognition.getLabel()) {
                         case "1 Bolt":
-                            return PowerPlayEnums.parkingZone.Zone1Bolt;
+                            return Constants.parkingZone.Zone1Bolt;
                         case "2 Bulb":
-                            return PowerPlayEnums.parkingZone.Zone2Bulb;
+                            return Constants.parkingZone.Zone2Bulb;
                         case "3 Panel":
-                            return PowerPlayEnums.parkingZone.Zone3Panel;
+                            return Constants.parkingZone.Zone3Panel;
                     }
                 }
             }

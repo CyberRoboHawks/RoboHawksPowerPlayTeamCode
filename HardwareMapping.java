@@ -38,7 +38,7 @@ public class HardwareMapping {
 
         armMotor = setupMotor("armMotor",DcMotorSimple.Direction.FORWARD,0,true,true);
         clawServo = setupServo("gripper",0.5);
-        clawRotationServo = setupServo("wrist",0);
+        clawRotationServo = setupServo("wrist",0.3);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -57,15 +57,15 @@ public class HardwareMapping {
             motor.setDirection(direction);
             motor.setPower(initialPower);
 
-//            if (useEncoder){
-//                motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//            }
-//
-//            if(brakeMode){
-//                motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//            }else{
-//                motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-//            }
+            if (useEncoder){
+                motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+
+            if(brakeMode){
+                motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            }else{
+                motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            }
             return motor;
         }
         catch(Exception e) {

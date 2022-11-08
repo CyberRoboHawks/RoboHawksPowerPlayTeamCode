@@ -2,30 +2,23 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
 public abstract class AutonomousBase extends LinearOpMode {
     Commands commands = new Commands();
-    HardwareMapping robot = new HardwareMapping();   // Use our hardware mapping
     ObjectDetection objectDetection = new ObjectDetection();
 
     final double DRIVE_SPEED = 0.2;
 
     public void startupInit() {
         commands.init(hardwareMap);
-        robot.init(hardwareMap);
         objectDetection.init(hardwareMap);
         telemetry.addData("Status:", "ready");
         telemetry.update();
     }
 
-    public void executeCommands(PowerPlayEnums.startingSide startingSide) throws InterruptedException{
+    public void executeCommands(Constants.startingSide startingSide) throws InterruptedException{
 
         // read signal
-        PowerPlayEnums.parkingZone parkingZone = objectDetection.readParkingZone(5, 500);
+        Constants.parkingZone parkingZone = objectDetection.readParkingZone(5, 500);
         telemetry.addData("ParkingZone :", parkingZone);
         telemetry.update();
 
@@ -71,7 +64,7 @@ public abstract class AutonomousBase extends LinearOpMode {
                 commands.driveForward(DRIVE_SPEED, 24, 3);
                 break;
             case Zone2Bulb:
-                if (startingSide == PowerPlayEnums.startingSide.Left){
+                if (startingSide == Constants.startingSide.Left){
                     commands.spinLeft(DRIVE_SPEED, 0, 3);
                 }else{
                     commands.spinRight(DRIVE_SPEED, 0, 3);
